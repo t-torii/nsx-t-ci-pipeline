@@ -13,9 +13,11 @@ export GOVC_TLS_CA_CERTS=/tmp/vcenter-ca.pem
 echo "$GOVC_CA_CERT" > $GOVC_TLS_CA_CERTS
 
 source "${root}/nsx-t-ci-pipeline/functions/check_opsman_available.sh"
-echo "start wipe"
-opsman_available=$(check_opsman_available $OPSMAN_DOMAIN_OR_IP_ADDRESS)
-echo $opsman_available
+
+# Bypass opsman available check because there is no DNS entry for opsman domain
+# opsman_available=$(check_opsman_available $OPSMAN_DOMAIN_OR_IP_ADDRESS)
+opsman_available="available"
+
 if [[ $opsman_available == "available" ]]; then
 
   # Check for pending changes before starting deletion
