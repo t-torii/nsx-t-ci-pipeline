@@ -15,6 +15,7 @@ echo "$GOVC_CA_CERT" > $GOVC_TLS_CA_CERTS
 source "${root}/nsx-t-ci-pipeline/functions/check_opsman_available.sh"
 echo "start wipe"
 opsman_available=$(check_opsman_available $OPSMAN_DOMAIN_OR_IP_ADDRESS)
+echo $opsman_available
 if [[ $opsman_available == "available" ]]; then
 
   # Check for pending changes before starting deletion
