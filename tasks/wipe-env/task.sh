@@ -56,8 +56,9 @@ fi
 
 # Delete Active OpsMan
 resource_pool_path=$(govc find . -name ${GOVC_RESOURCE_POOL} | grep -i resource )
+echo "resource_pool_path=$resource_pool_path"
 possible_opsmans=$(govc find $resource_pool_path -type m -guest.ipAddress ${OPSMAN_IP} -runtime.powerState poweredOn)
-echo $possible_opsmans
+echo "possible_opsmans=$possible_opsmans"
 for opsman in ${possible_opsmans}; do
   network="$(govc vm.info -r=true -json ${opsman} | jq -r '.VirtualMachines[0].Guest.Net[0].Network')"
   if [[ ${network} == ${GOVC_NETWORK} || ${network} == "" ]]; then
