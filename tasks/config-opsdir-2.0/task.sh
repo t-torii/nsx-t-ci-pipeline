@@ -363,6 +363,7 @@ echo "Configuring IaaS and Director..."
 # could not execute "configure-bosh":
 # could not decode json:
 # json: cannot unmarshal string into Go value of type bool
+
 wrapped_iaas_config=$(cat << EOF
 {
    "iaas_configuration" : $iaas_configuration
@@ -375,9 +376,10 @@ EOF
 # could not execute "configure-bosh":
 # could not decode json:
 # json: cannot unmarshal string into Go value of type bool
-wrapped_iaas_config=$(cat << EOF
+
+wrapped_security_config=$(cat << EOF
 {
-   "iaas_configuration" : $iaas_configuration
+   "security_configuration" : $security_configuration
 }
 EOF
 )
@@ -426,10 +428,20 @@ om-linux \
   --skip-ssl-validation \
   --username $OPSMAN_USERNAME \
   --password $OPSMAN_PASSWORD \
-  configure-bosh \
-  --security-configuration "$security_configuration"
+  curl -p '/api/v0/staged/director/properties' \
+  -x PUT -d  "$wrapped_security_config" \
+  2>/dev/null
+
+# om-linux \
+#   --target https://$OPSMAN_DOMAIN_OR_IP_ADDRESS \
+#   --skip-ssl-validation \
+#   --username $OPSMAN_USERNAME \
+#   --password $OPSMAN_PASSWORD \
+#   configure-bosh \
+#   --security-configuration "$security_configuration"
 #  2>/dev/null
 # Check for errors
+
 if [ $? != 0 ]; then
   echo "Bosh Security configuration failed!!"
   exit 1
