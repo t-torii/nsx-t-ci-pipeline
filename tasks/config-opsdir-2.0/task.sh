@@ -417,8 +417,8 @@ om-linux \
   --username $OPSMAN_USERNAME \
   --password $OPSMAN_PASSWORD \
   configure-bosh \
-  --security-configuration "$security_configuration" \
-  2>/dev/null
+  --security-configuration "$security_configuration"
+#  2>/dev/null
 # Check for errors
 if [ $? != 0 ]; then
   echo "Bosh Security configuration failed!!"
