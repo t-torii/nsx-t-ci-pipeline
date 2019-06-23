@@ -411,6 +411,7 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
+echo $security_configuration
 om-linux \
   --target https://$OPSMAN_DOMAIN_OR_IP_ADDRESS \
   --skip-ssl-validation \
