@@ -324,16 +324,25 @@ director_config=$(cat <<-EOF
 EOF
 )
 
-security_configuration=$(
-  jq -n \
-    --arg trusted_certificates "$TRUSTED_CERTIFICATES" \
-    '
-    {
-      "trusted_certificates": $trusted_certificates,
-      "generate_vm_passwords": true,
-      "opsmanager_root_ca_trusted_certs": true
-    }'
+# security_configuration=$(
+#   jq -n \
+#     --arg trusted_certificates "$TRUSTED_CERTIFICATES" \
+#     '
+#     {
+#       "trusted_certificates": $trusted_certificates,
+#       "generate_vm_passwords": true,
+#       "opsmanager_root_ca_trusted_certs": true
+#     }'
+# )
+
+security_configuration=$(cat <<-EOF
+{
+  "generate_vm_passwords": true,
+  "opsmanager_root_ca_trusted_certs": true
+}
+EOF
 )
+
 
 network_az_assignment=$(
 jq -n \
