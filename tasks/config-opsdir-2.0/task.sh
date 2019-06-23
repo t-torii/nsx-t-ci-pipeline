@@ -330,7 +330,7 @@ security_configuration=$(
     '
     {
       "trusted_certificates": $trusted_certificates,
-      "vm_password_type": "generate",
+      "generate_vm_passwords": true,
       "opsmanager_root_ca_trusted_certs": true
     }'
 )
